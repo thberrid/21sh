@@ -1,0 +1,8 @@
+*.a
+*.o
+21sh
+*.dSYM
+*.sw*
+*.out
+.DS_Store
+.vscode
