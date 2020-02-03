@@ -10,16 +10,16 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minishell
+NAME = 21sh
 DIR_C = srcs
 DIR_O = objs
 DIR_H = incs
 NAME_C = \
-	main.c \
+	main.c
 NAME_O = $(NAME_C:.c=.o)
 FILES_C = $(addprefix $(DIR_C)/, $(NAME_C))
 FILES_O = $(addprefix $(DIR_O)/, $(NAME_O))
-FILES_H = minishell.h
+FILES_H = twentyonesh.h
 LIBFT = ./libft/libft.a
 FLAGS = -Wall -Wextra -Werror
 
