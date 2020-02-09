@@ -15,4 +15,8 @@
 
 # include <libft.h>
 
+# define PROMPT "\e[36mmishelle # \e[0m"
+
+int		prompt_loop(char **env);
+
 #endif
