@@ -17,7 +17,7 @@ int		prompt_loop(char **env)
 {
 	int			retrn;
 	char		*line;
-	t_bintree	ast;
+	t_btree		ast;
 
 
 	line = NULL;
@@ -25,7 +25,7 @@ int		prompt_loop(char **env)
 	retrn = get_next_line(0, &line);
 	if (!retrn)
 		return (0);
-	ft_bzero(&ast, sizeof(t_bintree));
+	ft_bzero(&ast, sizeof(t_btree));
 	retrn = parser(&ast, line);
 	if (retrn)
 		return (0);

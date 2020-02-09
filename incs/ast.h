@@ -29,11 +29,16 @@ typedef struct	s_token
 	enum e_token_names	name;
 }				t_token;
 
-typedef struct	s_bintree
+typedef struct	s_btree
 {
 	struct s_token		token;
-	struct s_bintree	*left;
-	struct s_bintree	*right;
-}				t_bintree;
+	struct s_btree		*parent;
+	struct s_btree		*left;
+	struct s_btree		*right;
+}				t_btree;
 
+int				btree_dfs(t_btree *btree, char **env,
+					int (*f)(t_btree *, char **));
+int				btree_apply(t_btree *btree, char **env);
+int				btree_free(t_btree *btree, char **env);
 #endif
