@@ -19,9 +19,8 @@ int		prompt_loop(char **env)
 	char		*line;
 	t_btree		*ast;
 
-
 	line = NULL;
-	ft_printf("%s\n", PROMPT);
+	ft_printf("%s", PROMPT);
 	while ((retrn = get_next_line(0, &line)) > 0)
 	{
 		if (retrn <= 0)
@@ -33,6 +32,9 @@ int		prompt_loop(char **env)
 			return (0);
 		retrn = btree_dfs(ast, env, &btree_apply);
 		btree_dfs(ast, env, &btree_free);
+		if (LEAKS)
+			system("leaks 21sh");
+		ft_printf("%s", PROMPT);
 	}
 	return (retrn);
 }

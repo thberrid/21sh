@@ -20,20 +20,23 @@ NAME_C = main.c \
 		parser.c \
 		prompt.c 
 NAME_O = $(NAME_C:.c=.o)
+NAME_H = twentyonesh.h \
+			ast.h
 FILES_C = $(addprefix $(DIR_C)/, $(NAME_C))
 FILES_O = $(addprefix $(DIR_O)/, $(NAME_O))
-FILES_H = twentyonesh.h \
-			ast.h
+FILES_H = $(addprefix $(DIR_H)/, $(NAME_H))
 LIBFT = ./libft/libft.a
 FLAGS = -Wall -Wextra -Werror
 
 all : $(NAME)
 
-$(NAME) : $(FILES_O) $(DIR_H)/$(FILES_H) $(LIBFT)
+$(NAME) : $(FILES_O) $(FILES_H) $(LIBFT)
+#	gcc -fsanitize=address -g3 -I ./$(DIR_H) -I ./libft/ -L ./libft/ -lft -o $(NAME) $(FILES_O)
 	gcc -g3 -I ./$(DIR_H) -I ./libft/ -L ./libft/ -lft -o $(NAME) $(FILES_O)
  
-$(DIR_O)/%.o : $(DIR_C)/%.c $(DIR_H)/$(FILES_H)
+$(DIR_O)/%.o : $(DIR_C)/%.c $(FILES_H)
 	@ mkdir -p $(DIR_O)
+#	gcc -fsanitize=address -g3 -I ./$(DIR_H) $(FLAGS) -I ./libft/ -c -o $@ $<
 	gcc -g3 -I ./$(DIR_H) $(FLAGS) -I ./libft/ -c -o $@ $<
 
 $(LIBFT) :

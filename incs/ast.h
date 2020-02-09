@@ -17,9 +17,8 @@
 
 enum			e_token_names
 {
-	tok_identifier,
-	tok_separator,
-	tok_literal,
+	tok_name,
+	tok_operator,
 	tok_comment
 };
 

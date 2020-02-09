@@ -23,22 +23,69 @@ static int	ft_spaceslen(char *str)
 	return (len);
 }
 
+char	*ft_strndup(const char *src, size_t len)
+{
+	size_t	i;
+	char	*dest;
+
+	i = 0;
+	if (!(dest = ft_strnew(len)))
+		return (NULL);
+	while (src[i] != '\0' && i < len)
+	{
+		dest[i] = src[i];
+		i += 1;
+	}
+	return (dest);
+}
+
 static int	get_next_str_fragmnt(char *line)
 {
 	int		len;
 
-	len = ft_splaceslen(line);
-	while (*(line + len) && !ft_isspace(line + len))
+	len = ft_spaceslen(line);
+	while (*(line + len) && !ft_isspace(line[len]))
 		len += 1;
 	return (len);
+}
+
+char		**get_operators(){
+	static char	*(operators[8]) = {
+		">",
+		">>",
+		"<",
+		"<<",
+		"|",
+		"&",
+		";",
+		NULL
+	};
+	return (operators);
 }
 
 static int	associate_token(t_token *token, char *str, int len)
 {
 	int		index;
+	int		cursor;
+	char	**operators;
 
-	index = ft_splaceslen(str);
-	
+	cursor = ft_spaceslen(str);
+	operators = get_operators();
+	index = 0;
+	while (operators[index])
+	{
+		if (ft_strncmp(str + cursor, operators[index], len))
+		{
+			token->name = tok_operator;
+			if (!(token->value = ft_strdup(operators[index])))
+				return (-1);
+			return (0);
+		}
+		index += 1;
+	}
+	token->name = tok_name;
+	if (!(token->value = ft_strndup(str + cursor, len)))
+		return (-1);
 	return (0);
 }
 
@@ -46,7 +93,7 @@ int			lexer_set_token(t_token *token, char *line, int cursor)
 {
 	int		fragment_len;
 
-	if (cursor >= ft_strlen(line))
+	if (cursor >= (int)ft_strlen(line))
 		return (0);
 	fragment_len = get_next_str_fragmnt(line + cursor);
 	associate_token(token, line + cursor, fragment_len);

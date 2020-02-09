@@ -19,5 +19,9 @@ int		main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	retrn = prompt_loop(env);
+	if (LEAKS)
+		system("leaks 21sh");
+	if (DEBUG)
+		ft_printf("$? : %d\n", retrn);
 	return (retrn);
 }

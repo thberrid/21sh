@@ -25,7 +25,7 @@ int		parser(t_btree **ast, char *line)
 	{
 		if (new_token.name != tok_comment)
 		{
-			if ((new_node = btree_create(&new_token)))
+			if (!(new_node = btree_create(&new_token)))
 				return (-1);
 			btree_add(ast, new_node);
 		}
