@@ -14,8 +14,11 @@ NAME = 21sh
 DIR_C = srcs
 DIR_O = objs
 DIR_H = incs
-NAME_C = \
-	main.c
+NAME_C = main.c \
+		bintree.c \
+		lexer.c \
+		parser.c \
+		prompt.c 
 NAME_O = $(NAME_C:.c=.o)
 FILES_C = $(addprefix $(DIR_C)/, $(NAME_C))
 FILES_O = $(addprefix $(DIR_O)/, $(NAME_O))

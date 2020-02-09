@@ -41,4 +41,5 @@ int				btree_dfs(t_btree *btree, char **env,
 					int (*f)(t_btree *, char **));
 int				btree_apply(t_btree *btree, char **env);
 int				btree_free(t_btree *btree, char **env);
+
 #endif

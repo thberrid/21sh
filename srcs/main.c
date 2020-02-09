@@ -11,10 +11,13 @@
 /* ************************************************************************** */
 
 #include <twentyonesh.h>
-#include <ast.h>
 
-int		main(void)
+int		main(int ac, char **av, char **env)
 {
-	ft_printf("Ok boomer\n");
-	return (0);
+	int		retrn;
+
+	(void)ac;
+	(void)av;
+	retrn = prompt_loop(env);
+	return (retrn);
 }
