@@ -74,7 +74,7 @@ static int	associate_token(t_token *token, char *str, int len)
 	index = 0;
 	while (operators[index])
 	{
-		if (ft_strncmp(str + cursor, operators[index], len))
+		if (ft_strnequ(str + cursor, operators[index], len))
 		{
 			token->name = tok_operator;
 			if (!(token->value = ft_strdup(operators[index])))
