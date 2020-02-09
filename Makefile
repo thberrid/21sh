@@ -19,7 +19,8 @@ NAME_C = \
 NAME_O = $(NAME_C:.c=.o)
 FILES_C = $(addprefix $(DIR_C)/, $(NAME_C))
 FILES_O = $(addprefix $(DIR_O)/, $(NAME_O))
-FILES_H = twentyonesh.h
+FILES_H = twentyonesh.h \
+			ast.h
 LIBFT = ./libft/libft.a
 FLAGS = -Wall -Wextra -Werror
 

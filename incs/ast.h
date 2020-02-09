@@ -1,20 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thberrid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/03 23:12:55 by thberrid          #+#    #+#             */
-/*   Updated: 2020/02/03 23:13:38 by thberrid         ###   ########.fr       */
+/*   Created: 2020/02/06 03:58:55 by thberrid          #+#    #+#             */
+/*   Updated: 2020/02/06 03:58:57 by thberrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <twentyonesh.h>
-#include <ast.h>
+#ifndef AST_H
+# define AST_H
 
-int		main(void)
+# include <libft.h>
+
+enum			e_token_names
 {
-	ft_printf("Ok boomer\n");
-	return (0);
-}
+	tok_identifier,
+	tok_separator,
+	tok_literal,
+	tok_comment
+};
+
+typedef struct	s_token
+{
+	char				*value;
+	enum e_token_names	name;
+}				t_token;
+
+typedef struct	s_bintree
+{
+	struct s_token		token;
+	struct s_bintree	*left;
+	struct s_bintree	*right;
+}				t_bintree;
+
+#endif
