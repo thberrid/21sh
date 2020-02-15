@@ -15,11 +15,14 @@
 
 # include <libft.h>
 
+# define CMD_SEPARATOR "><&|;"
+
 enum			e_token_names
 {
 	tok_name,
 	tok_operator,
-	tok_comment
+	tok_comment,
+	tok_empty
 };
 
 typedef struct	s_token
@@ -44,6 +47,8 @@ int				btree_free(t_btree *btree, char **env);
 
 int				lexer_set_token(t_token *new, char *line, int cursor);
 
-int				parser(t_btree **ast, char *line);
+int				ast_fill(t_btree **ast, char *line);
+
+// btree_bfs_lr_tb ? from top to bottom
 
 #endif

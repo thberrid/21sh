@@ -15,9 +15,9 @@ DIR_C = srcs
 DIR_O = objs
 DIR_H = incs
 NAME_C = main.c \
+		ast.c \
 		ast_btree.c \
 		ast_lexer.c \
-		ast_parser.c \
 		prompt.c 
 NAME_O = $(NAME_C:.c=.o)
 NAME_H = twentyonesh.h \

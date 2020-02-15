@@ -26,7 +26,7 @@ int		prompt_loop(char **env)
 		if (retrn <= 0)
 			return (retrn);
 		ast = NULL;
-		retrn = parser(&ast, line);
+		retrn = ast_fill(&ast, line);
 		ft_strdel(&line);
 		if (retrn)
 			return (0);

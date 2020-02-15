@@ -44,7 +44,7 @@ static int	get_next_str_fragmnt(char *line)
 	int		len;
 
 	len = ft_spaceslen(line);
-	while (*(line + len) && !ft_isspace(line[len]))
+	while (line[len] && !ft_isspace(line[len]))
 		len += 1;
 	return (len);
 }
@@ -70,6 +70,7 @@ static int	associate_token(t_token *token, char *str, int len)
 	char	**operators;
 
 	cursor = ft_spaceslen(str);
+	len -= cursor;
 	operators = get_operators();
 	index = 0;
 	while (operators[index])
@@ -96,6 +97,7 @@ int			lexer_set_token(t_token *token, char *line, int cursor)
 	if (cursor >= (int)ft_strlen(line))
 		return (0);
 	fragment_len = get_next_str_fragmnt(line + cursor);
-	associate_token(token, line + cursor, fragment_len);
+	if (associate_token(token, line + cursor, fragment_len) < 0)
+		return (-1);
 	return (cursor + fragment_len);
 }
