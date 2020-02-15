@@ -15,7 +15,7 @@ DIR_C = srcs
 DIR_O = objs
 DIR_H = incs
 NAME_C = main.c \
-		ast_bintree.c \
+		ast_btree.c \
 		ast_lexer.c \
 		ast_parser.c \
 		prompt.c 
