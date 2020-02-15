@@ -32,12 +32,12 @@ all : $(NAME)
 
 $(NAME) : $(FILES_O) $(FILES_H) $(LIBFT)
 #	gcc -fsanitize=address -g3 -I ./$(DIR_H) -I ./libft/ -L ./libft/ -lft -o $(NAME) $(FILES_O)
-	gcc -g3 -I ./$(DIR_H) -I ./libft/ -L ./libft/ -lft -o $(NAME) $(FILES_O)
+	$(CC) -g3 -I ./$(DIR_H) -I ./libft/ -L ./libft/ $(FILES_O) -lft -o $(NAME)
  
 $(DIR_O)/%.o : $(DIR_C)/%.c $(FILES_H)
 	@ mkdir -p $(DIR_O)
 #	gcc -fsanitize=address -g3 -I ./$(DIR_H) $(FLAGS) -I ./libft/ -c -o $@ $<
-	gcc -g3 -I ./$(DIR_H) $(FLAGS) -I ./libft/ -c -o $@ $<
+	$(CC) -g3 -I ./$(DIR_H) -I ./libft/ $(FLAGS) -c -o $@ $<
 
 $(LIBFT) :
 	make -C ./libft/
