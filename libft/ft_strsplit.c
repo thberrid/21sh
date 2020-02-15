@@ -36,11 +36,9 @@ char			**ft_strsplit(char const *s, char c)
 {
 	char	**tab;
 	int		i;
-	int		w;
 	int		words;
 
 	i = 0;
-	w = 0;
 	words = ft_counter_words(s, c);
 	if (!s || !(tab = (char **)malloc(sizeof(char *) * (words + 1))))
 		return (NULL);

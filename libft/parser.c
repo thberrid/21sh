@@ -119,7 +119,7 @@ int		ft_print_char(const char **format, t_lst_args *spe, va_list va)
 	if (**format == 'S' || (**format == 's' && (spe->flag & FLAG_LONG)))
 	{
 		ptr = va_arg(va, wchar_t *);
-		if (ptr == '\0' || *ptr == '\0')
+		if (!ptr || *ptr == '\0')
 			return (ft_nulstring(format, spe, (char*)ptr));
 		spe->len = (unsigned int)ft_wlen(ptr, spe);
 		ft_pastring(format, spe, (char *)ptr);

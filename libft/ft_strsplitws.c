@@ -52,11 +52,9 @@ char			**ft_strsplitws(char const *s)
 {
 	char	**tab;
 	int		i;
-	int		w;
 	int		words;
 
 	i = 0;
-	w = 0;
 	words = ft_cnt_words(s);
 	if (!s || !(tab = (char **)malloc(sizeof(char *) * (words + 1))))
 		return (NULL);

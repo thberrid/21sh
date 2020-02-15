@@ -14,7 +14,7 @@
 
 int		ft_nulstring(const char **format, t_lst_args *spe, char *ptr)
 {
-	if (ptr == '\0' || (!ptr && !(spe->flag & FLAG_ZEROPAD)))
+	if (!ptr && !(spe->flag & FLAG_ZEROPAD))
 	{
 		if (!(spe->flag & FLAG_ZEROPAD))
 		{
@@ -40,7 +40,7 @@ int		ft_nulstring(const char **format, t_lst_args *spe, char *ptr)
 int		ft_initstring(const char **format, t_lst_args *spe, va_list va)
 {
 	spe->ptr = va_arg(va, char*);
-	if (spe->ptr == '\0' || (!spe->ptr && !(spe->flag & FLAG_ZEROPAD)))
+	if (!spe->ptr|| (!spe->ptr && !(spe->flag & FLAG_ZEROPAD)))
 	{
 		if ((!(spe->flag & FLAG_LEFT) && !(spe->flag & FLAG_PRECISION))
 		&& (spe->width > 6))

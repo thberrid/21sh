@@ -127,7 +127,7 @@ int		ft_float(t_lst_args *spe, va_list va)
 	ft_integer_part(spe, spe->save);
 	if ((spe->flag & FLAG_LEFT))
 	{
-		spe->tmp = (spe->negatif == 1) ? ++spe->tmp : spe->tmp;
+		spe->tmp += ((spe->negatif == 1) ? 1 : 0);
 		spe->precision += spe->tmp;
 		spe->width = spe->padf;
 		ft_rpading(spe);

@@ -14,9 +14,6 @@
 
 void	get_base(const char **format, t_lst_args *spe, va_list va)
 {
-	int		ret;
-
-	ret = 0;
 	if (**format == 'x' || **format == 'X')
 	{
 		if (**format == 'X')
@@ -36,7 +33,7 @@ void	get_base(const char **format, t_lst_args *spe, va_list va)
 		spe->base = 10;
 		spe->flag &= ~FLAG_HASH;
 	}
-	ret = ft_nbr(format, spe, va);
+	ft_nbr(format, spe, va);
 }
 
 int		ft_padwchar(t_lst_args *spe, const char **format)
