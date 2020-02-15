@@ -13,6 +13,11 @@
 #include <twentyonesh.h>
 #include <ast.h>
 
+/*
+** browses a binary tree, with deepth first search
+** applying on each node a `int (*fn): return value : 0 = OK` 
+*/
+
 int		btree_dfs(t_btree *btree, char **env, int (*f)(t_btree *, char **))
 {
 	int		retrn;
