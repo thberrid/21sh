@@ -15,7 +15,7 @@
 
 /*
 ** browses a binary tree, with deepth first search
-** applying on each node a `int (*fn): return value : 0 = OK` 
+** applying on each node a `int (*fn): return value` 
 */
 
 int		btree_dfs(t_btree *btree, char **env, int (*f)(t_btree *, char **))
@@ -35,13 +35,6 @@ int		btree_dfs(t_btree *btree, char **env, int (*f)(t_btree *, char **))
 	return (retrn);
 }
 
-int		btree_apply(t_btree *btree, char **env)
-{
-	(void)env;
-	ft_printf("applying: %s (%d)\n", btree->token.value, btree->token.name);
-	return (0);
-}
-
 int		btree_free(t_btree *btree, char **env)
 {
 	(void)env;
@@ -58,29 +51,4 @@ t_btree	*btree_create(t_token *new_token)
 		return (NULL);
 	ft_memcpy(&new_node->token, new_token, sizeof(t_token));
 	return (new_node);
-}
-
-int		btree_add(t_btree **ast, t_btree *new_node)
-{
-	t_token this_tok;
-
-	this_tok = new_node->token;
-	if (!*ast)
-		*ast = new_node;
-	else if (this_tok.name == tok_operator)
-	{
-		new_node->left = *ast;
-		*ast = new_node;
-	}
-	else
-	{
-		if (!(*ast)->left)
-			(*ast)->left = new_node;
-		else if (!(*ast)->right)
-			(*ast)->right = new_node;
-		else
-			return (-1);
-				
-	}
-	return (0);
 }

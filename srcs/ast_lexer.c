@@ -39,12 +39,24 @@ char	*ft_strndup(const char *src, size_t len)
 	return (dest);
 }
 
+static int	analyse_operator(char *line, int cursor)
+{
+	int		len;
+
+	len = 1;
+	if (line[cursor + 1] && ft_contains(line[cursor], "><") && line[cursor] == line[cursor + 1])
+		len += 1;
+	return (len);
+}
+
 static int	get_next_str_fragmnt(char *line)
 {
 	int		len;
 
 	len = ft_spaceslen(line);
-	while (line[len] && !ft_isspace(line[len]))
+	if (line[len] && ft_contains(line[len], CMD_SEPARATOR))
+		return ((len += analyse_operator(line, len)));
+	while (line[len] && !ft_contains(line[len], CMD_SEPARATOR))
 		len += 1;
 	return (len);
 }

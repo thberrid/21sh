@@ -30,7 +30,7 @@ int		prompt_loop(char **env)
 		ft_strdel(&line);
 		if (retrn)
 			return (0);
-		retrn = btree_dfs(ast, env, &btree_apply);
+		retrn = btree_dfs(ast, env, &btree_execute);
 		btree_dfs(ast, env, &btree_free);
 		if (LEAKS)
 			system("leaks 21sh");
