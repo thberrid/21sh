@@ -38,6 +38,7 @@ int		btree_add_word(t_btree **ast, t_btree *new_word)
 		(*ast)->right = new_word;
 	else
 		return (E_CATCH_ALL);
+	return (E_SUCCESS);
 }
 
 int		btree_add(t_btree **ast, t_btree *new_node)
@@ -65,9 +66,8 @@ int		ast_fill(t_btree **ast, char *line)
 	{
 		if (new_token.name != EMPTY_LINE)
 		{
-			if (!(new_node = btree_create(&new_token)))
-				return (E_MALLOCFAIL);
-			btree_add(ast, new_node);
+			if ((new_node = btree_create(&new_token)))
+				btree_add(ast, new_node);
 		}
 		ft_bzero(&new_token, sizeof(t_token));
 	}

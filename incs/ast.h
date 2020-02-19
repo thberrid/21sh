@@ -15,7 +15,7 @@
 
 # include <libft.h>
 
-# define CMD_SEPARATOR 	"><&|;"
+# define LINE_SEPARATOR	"><&|;"
 
 enum			e_errors {
 	E_MALLOCFAIL = -1,
@@ -47,8 +47,8 @@ typedef struct	s_token
 typedef struct	s_btree
 {
 	t_token	token;
-	t_token	*left;
-	t_token	*right;
+	struct s_btree	*left;
+	struct s_btree	*right;
 }				t_btree;
 
 t_btree			*btree_create(t_token *new);
