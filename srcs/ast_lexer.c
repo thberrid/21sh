@@ -61,42 +61,61 @@ static int	get_next_str_fragmnt(char *line)
 	return (len);
 }
 
-char		**get_operators(){
-	static char	*(operators[8]) = {
-		">",
-		">>",
-		"<",
-		"<<",
-		"|",
-		"&",
-		";",
-		NULL
+t_token		**get_controllers(){
+	static t_token	*(controllers[3]) = {
+		{"|", PIPE},
+		{";", NEWLINE},
+		{NULL, EMPTY_LINE}
 	};
-	return (operators);
+	return (controllers);
+}
+
+t_token		**get_redirections(){
+	static t_token	*(redirections[5]) = {
+		{">", GREAT},
+		{">>", DGREAT},
+		{"<", LESS},
+		{"<<", DLESS},
+		{NULL, EMPTY_LINE}
+	};
+	return (redirections);
+}
+
+int			str_is_operator(char *str, int len, t_token *token, t_token **(*f)())
+{
+	t_token	**operators;
+	int		index;
+
+	operators = f();
+	index = 0;
+	while (operators[index]->value)
+	{
+		if (ft_strnequ(str, operators[index]->value, len))
+		{
+			token->name = operators[index]->name;
+			if (!(token->value = ft_strdup(operators[index]->value)))
+				return (E_MALLOCFAIL);
+			return (1);
+		}
+		index += 1;
+	}
+	return (0);
 }
 
 static int	associate_token(t_token *token, char *str, int len)
 {
-	int		index;
+	int		retrn;
 	int		cursor;
-	char	**operators;
 
 	cursor = ft_spaceslen(str);
 	len -= cursor;
-	operators = get_operators();
-	index = 0;
-	while (operators[index])
-	{
-		if (ft_strnequ(str + cursor, operators[index], len))
-		{
-			token->name = tok_operator;
-			if (!(token->value = ft_strdup(operators[index])))
-				return (-1);
-			return (0);
-		}
-		index += 1;
-	}
-	token->name = tok_name;
+	retrn = str_is_operator(str + cursor, len, token, &get_redirections);
+	if (retrn)
+		return (retrn);
+	retrn = str_is_operator(str + cursor, len, token, &get_controllers);
+	if (retrn)
+		return (retrn);
+	token->name = WORD;
 	if (!(token->value = ft_strndup(str + cursor, len)))
 		return (-1);
 	return (0);
