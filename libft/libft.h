@@ -197,4 +197,7 @@ int					get_next_line(const int fd, char **line);
 char				ft_contains(const char c, register const char *str);
 int					ft_countchar(char *str, char c);
 
+char				*ft_strndup(const char *src, size_t len);
+int					ft_spaceslen(char *str);
+
 #endif

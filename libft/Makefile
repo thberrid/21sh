@@ -93,7 +93,9 @@ SRC =	ft_memset.c		\
 		pading.c \
 		float.c \
 		get_next_line.c \
-		lst.c
+		lst.c			\
+		ft_strndup.c	\
+		ft_spaceslen.c
 
 OFILES = $(SRC:.c=.o)
 
