@@ -62,7 +62,7 @@ t_token		*str_is_operator(char *str, int len, t_token *(*get_operators)())
 
 	operators = get_operators();
 	index = 0;
-	while (operators[index].value)
+	while (operators[index].name)
 	{
 		if (ft_strnequ(str, operators[index].value, len))
 			return (&operators[index]);
@@ -77,7 +77,6 @@ static enum e_token_names	token_find_name(char *str, int len)
 	t_token	*reference;
 
 	cursor = ft_spaceslen(str);
-	len -= cursor;
 	reference = str_is_operator(str + cursor, len, &get_redirections);
 	if (!reference)
 		reference = str_is_operator(str + cursor, len, &get_controllers);
