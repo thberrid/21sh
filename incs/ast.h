@@ -26,14 +26,14 @@ enum			e_errors {
 
 enum			e_token_names
 {
-	EMPTY_LINE,
-	WORD,		// default
-	NEWLINE, 	// ;
-	LESS,		// <
-	GREAT,		// >
-	DLESS,		// <<
-	DGREAT,		// >>
-	PIPE		// pipe lol
+	EMPTY_LINE,	//				0
+	WORD,		//	default		1
+	NEWLINE, 	// 	;			2
+	LESS,		// 	<			3
+	GREAT,		// 	>			4
+	DLESS,		// 	<<			5
+	DGREAT,		// 	>>			6
+	PIPE		// 	pipe lol	7
 	//	missing : 
 	//		- agregats lol
 };
@@ -43,6 +43,27 @@ typedef struct	s_token
 	char				*value;
 	enum e_token_names	name;
 }				t_token;
+
+/*
+
+typedef struct 	s_localvar
+{
+	t_dlist * (import tdlist lol)
+}				t_localvar;
+
+typedef struct s_fildes
+{
+	int		out;
+	int		in;
+	int		error;
+	enum etoeknnames ?
+}				t_fildes
+
+>> 	reset_fildes (t_fildes *)
+		.out = 0, in = 1, error = 2
+>>	set_fildes (t_fildes *, t_btree *);
+
+*/
 
 typedef struct	s_btree
 {
@@ -56,15 +77,13 @@ int				btree_dfs(t_btree *btree, char **env,
 					int (*f)(t_btree *, char **));
 int				btree_free(t_btree *btree, char **env);
 
-int				btree_add_operator(t_btree **ast, t_btree *new_node);
-int				btree_add_word(t_btree **ast, t_btree *new_word);
 int				btree_add(t_btree **btree, t_btree *new);
 
-int				lexer_set_token(t_token *new, char *line, int cursor);
+int				lexer_set_token(t_token *new, char *line, size_t cursor);
 
 int				btree_execute(t_btree *btree, char **env);
 
-int				ast_fill(t_btree **ast, char *line);
+int				ast_parser(t_btree **ast, char *line);
 
 int				token_is_name(t_token *token);
 int				token_is_operator(t_token *token);

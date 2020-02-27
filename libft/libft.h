@@ -199,5 +199,6 @@ int					ft_countchar(char *str, char c);
 
 char				*ft_strndup(const char *src, size_t len);
 int					ft_spaceslen(char *str);
+int					ft_spaceslenr(char *str, int len);
 
 #endif

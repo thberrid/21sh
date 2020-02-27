@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   ast_lexer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thberrid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -18,7 +18,8 @@ static int	analyse_operator(char *line, int cursor)
 	int		len;
 
 	len = 1;
-	if (line[cursor + 1] && ft_contains(line[cursor], "><") && line[cursor] == line[cursor + 1])
+	if (line[cursor + 1] && ft_contains(line[cursor], "><")
+		&& line[cursor] == line[cursor + 1])
 		len += 1;
 	return (len);
 }
@@ -71,7 +72,7 @@ t_token		*str_is_operator(char *str, int len, t_token *(*get_operators)())
 	return (NULL);
 }
 
-static enum e_token_names	token_find_name(char *str, int len)
+static enum e_token_names	token_get_name(char *str, int len)
 {
 	int		cursor;
 	t_token	*reference;
@@ -81,19 +82,24 @@ static enum e_token_names	token_find_name(char *str, int len)
 	if (!reference)
 		reference = str_is_operator(str + cursor, len, &get_controllers);
 	if (!reference)
-		reference->name = WORD;
+		return (WORD);
 	return (reference->name);
 }
 
-int			lexer_set_token(t_token *token, char *line, int cursor)
+int			lexer_set_token(t_token *token, char *line, size_t cursor)
 {
 	int		fragment_len;
+	int		spaceslen;
 
-	if (cursor >= (int)ft_strlen(line))
+	if (cursor >= ft_strlen(line))
 		return (0);
 	fragment_len = get_next_str_fragmnt(line + cursor);
-	if ((token->name = token_find_name(line + cursor, fragment_len)) != EMPTY_LINE)
-		if (!(token->value = ft_strndup(line + cursor, fragment_len)))
+	if ((token->name = token_get_name(line + cursor, fragment_len)) != EMPTY_LINE)
+	{
+		spaceslen = ft_spaceslen(line + cursor);
+		fragment_len -= ft_spaceslenr(line + cursor, fragment_len);
+		if (!(token->value = ft_strndup(line + cursor + spaceslen, fragment_len - spaceslen)))
 			token->name = EMPTY_LINE;
+	}
 	return (cursor + fragment_len);
 }

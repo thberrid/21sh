@@ -16,10 +16,11 @@ DIR_O = objs
 DIR_H = incs
 NAME_C = main.c \
 		ast_btree.c \
+		ast_btree_add.c \
 		ast_execute.c \
 		ast_lexer.c \
 		ast_parser.c \
-		ast_token.c \
+		ast_token_is.c \
 		prompt.c 
 NAME_O = $(NAME_C:.c=.o)
 NAME_H = twentyonesh.h \

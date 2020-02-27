@@ -13,50 +13,16 @@
 #include <twentyonesh.h>
 #include <ast.h>
 
-int		btree_add_operator(t_btree **ast, t_btree *new_node)
+static int	ast_parser_error(char *last_token_value)
 {
-	t_token	this_tok;
-
-	this_tok = new_node->token;
-	if (token_is_redirection(&this_tok))
-	{
-		(*ast)->left = new_node;
-	}
-	else
-	{
-		new_node->left = *ast;
-		*ast = new_node;
-	}
-	return (E_SUCCESS);
+	ft_printf("%s: syntax error near unexpected token '%s'\n",
+		SHELL_NAME, last_token_value);
+	return (E_CATCH_ALL);
 }
 
-int		btree_add_word(t_btree **ast, t_btree *new_word)
+int			ast_parser(t_btree **ast, char *line)
 {
-	if (!(*ast)->left)
-		(*ast)->left = new_word;
-	else if (!(*ast)->right)
-		(*ast)->right = new_word;
-	else
-		return (E_CATCH_ALL);
-	return (E_SUCCESS);
-}
-
-int		btree_add(t_btree **ast, t_btree *new_node)
-{
-	t_token this_token;
-
-	this_token = new_node->token;
-	if (!*ast)
-		*ast = new_node;
-	else if (token_is_operator(&this_token))
-		return (btree_add_operator(ast, new_node));
-	btree_add_word(ast, new_node);
-	return (E_SUCCESS);
-}
-
-int		ast_fill(t_btree **ast, char *line)
-{
-	int		cursor;
+	size_t	cursor;
 	t_token	new_token;
 	t_btree *new_node;
 
@@ -67,9 +33,12 @@ int		ast_fill(t_btree **ast, char *line)
 		if (new_token.name != EMPTY_LINE)
 		{
 			if ((new_node = btree_create(&new_token)))
-				btree_add(ast, new_node);
+				if (btree_add(ast, new_node))
+					return (ast_parser_error((*ast)->token.value));
 		}
 		ft_bzero(&new_token, sizeof(t_token));
 	}
+	if (token_is_redirection(&(*ast)->token))
+		return (ast_parser_error((*ast)->token.value));
 	return (E_SUCCESS);
 }

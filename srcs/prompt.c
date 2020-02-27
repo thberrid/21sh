@@ -26,14 +26,15 @@ int		prompt_loop(char **env)
 		if (retrn <= 0)
 			return (retrn);
 		ast = NULL;
-		retrn = ast_fill(&ast, line);
+		retrn = ast_parser(&ast, line);
+		if (!retrn)
+			retrn = btree_dfs(ast, env, &btree_execute);
 		ft_strdel(&line);
-		if (retrn)
-			return (0);
-		retrn = btree_dfs(ast, env, &btree_execute);
 		btree_dfs(ast, env, &btree_free);
 		if (LEAKS)
 			system("leaks 21sh");
+		if (retrn)
+			return (retrn);
 		ft_printf("%s", PROMPT);
 	}
 	return (retrn);

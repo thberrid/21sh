@@ -18,7 +18,8 @@
 # define DEBUG 1
 # define LEAKS 0
 
-# define PROMPT "\e[36m# \e[0m"
+# define PROMPT		"\e[36m# \e[0m"
+# define SHELL_NAME	"mishell"
 
 int		prompt_loop(char **env);
 

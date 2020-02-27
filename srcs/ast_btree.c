@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bintree.c                                          :+:      :+:    :+:   */
+/*   ast_btree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thberrid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -40,7 +40,7 @@ int		btree_free(t_btree *btree, char **env)
 	(void)env;
 	ft_strdel(&btree->token.value);
 	ft_memdel((void **)&btree);
-	return (0);
+	return (E_SUCCESS);
 }
 
 t_btree	*btree_create(t_token *new_token)
