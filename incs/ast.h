@@ -45,24 +45,24 @@ typedef struct	s_token
 }				t_token;
 
 /*
-
 typedef struct 	s_localvar
 {
 	t_dlist * (import tdlist lol)
 }				t_localvar;
+*/
 
 typedef struct s_fildes
 {
 	int		out;
 	int		in;
 	int		error;
-	enum etoeknnames ?
-}				t_fildes
+	// enum etoeknnames ?
+}				t_fildes;
 
+/*
 >> 	reset_fildes (t_fildes *)
 		.out = 0, in = 1, error = 2
 >>	set_fildes (t_fildes *, t_btree *);
-
 */
 
 typedef struct	s_btree

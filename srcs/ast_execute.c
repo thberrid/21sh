@@ -16,12 +16,10 @@
 int		btree_execute(t_btree *btree, char **env)
 {
 	(void)env;
-	ft_printf("applying: `%s` (%d)\n", btree->token.value, btree->token.name);
-	/*
-		if (is_operator(token))
-			set_fd(t_fildes *)
-		else
-			analyse_line()
-	*/
+	ft_printf("exe: `%s` (%d)\n", btree->token.value, btree->token.name);
+	if (token_is_operator(&btree->token))
+		set_fd(btree, fildes);
+	else
+		analyse_line(btree, fildes, env, loc_var);
 	return (0);
 }
