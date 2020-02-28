@@ -36,16 +36,19 @@ static int	get_next_str_fragmnt(char *line)
 	return (len);
 }
 
-t_token		*get_controllers(){
+t_token		*get_controllers(void)
+{
 	static t_token	controllers[] = {
 		{"|", PIPE},
 		{";", NEWLINE},
 		{NULL, EMPTY_LINE}
 	};
+
 	return (controllers);
 }
 
-t_token		*get_redirections(){
+t_token		*get_redirections(void)
+{
 	static t_token	redirections[] = {
 		{">", GREAT},
 		{">>", DGREAT},
@@ -53,6 +56,7 @@ t_token		*get_redirections(){
 		{"<<", DLESS},
 		{NULL, EMPTY_LINE}
 	};
+
 	return (redirections);
 }
 

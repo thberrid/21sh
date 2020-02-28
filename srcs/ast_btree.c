@@ -15,7 +15,7 @@
 
 /*
 ** browses a binary tree, with deepth first search
-** applying on each node a `int (*fn): return value` 
+** applying on each node a `int (*fn): return value`
 */
 
 int		btree_dfs(t_btree *btree, char **env, int (*f)(t_btree *, char **))

@@ -13,7 +13,6 @@
 #include <twentyonesh.h>
 #include <ast.h>
 
-
 int		btree_execute(t_btree *btree, char **env)
 {
 	(void)env;
