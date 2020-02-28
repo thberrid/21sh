@@ -82,9 +82,9 @@ static enum e_token_names	token_get_name(char *str, int len)
 	t_token	*reference;
 
 	cursor = ft_spaceslen(str);
-	reference = str_is_operator(str + cursor, len, &get_redirections);
+	reference = str_is_operator(str + cursor, len - cursor, &get_redirections);
 	if (!reference)
-		reference = str_is_operator(str + cursor, len, &get_controllers);
+		reference = str_is_operator(str + cursor, len - cursor, &get_controllers);
 	if (!reference)
 		return (WORD);
 	return (reference->name);
@@ -98,10 +98,10 @@ int			lexer_set_token(t_token *token, char *line, size_t cursor)
 	if (cursor >= ft_strlen(line))
 		return (0);
 	fragment_len = get_next_str_fragmnt(line + cursor);
+	fragment_len -= ft_spaceslenr(line + cursor, fragment_len);
 	if ((token->name = token_get_name(line + cursor, fragment_len)) != EMPTY_LINE)
 	{
 		spaceslen = ft_spaceslen(line + cursor);
-		fragment_len -= ft_spaceslenr(line + cursor, fragment_len);
 		if (!(token->value = ft_strndup(line + cursor + spaceslen, fragment_len - spaceslen)))
 			token->name = EMPTY_LINE;
 	}

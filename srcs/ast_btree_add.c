@@ -17,7 +17,6 @@ static int	btree_add_from_right(t_btree **ast, t_btree *new_node)
 {
 	int		retrn;
 
-	ft_printf("TOP\n");
 	retrn = E_SUCCESS;
 	if (!token_is_operator(&(*ast)->token))
 		retrn = E_CATCH_ALL;
@@ -32,7 +31,6 @@ static int	btree_add_from_left(t_btree **ast, t_btree *new_node)
 {
 	int		retrn;
 
-	ft_printf("LEFT\n");
 	retrn = E_SUCCESS;
 	if (!token_is_operator(&(*ast)->token))
 		retrn = E_CATCH_ALL;
@@ -47,7 +45,6 @@ static int	btree_add_from_top(t_btree **ast, t_btree *new_node)
 {
 	int		retrn;
 
-ft_printf("RIGHT\n");
 	retrn = E_SUCCESS;
 	if (token_is_operator(&(*ast)->token))
 		retrn = E_CATCH_ALL;
@@ -62,10 +59,7 @@ int			btree_add(t_btree **ast, t_btree *new_node)
 
 	retrn = E_SUCCESS;
 	if (!*ast)
-	{
-		ft_printf("FIRST\n");
 		*ast = new_node;
-	}
 	else
 	{
 		if ((!(*ast)->left && !(*ast)->right)
