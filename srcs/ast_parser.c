@@ -34,7 +34,13 @@ int			ast_parser(t_btree **ast, char *line)
 		{
 			if ((new_node = btree_create(&new_token)))
 				if (btree_add(ast, new_node))
+				{
+					ft_printf("O > \n");
+					btree_dfs(*ast, NULL, &btree_execute);
 					return (ast_parser_error((*ast)->token.value));
+				}
+					ft_printf("X > \n");
+			btree_dfs(*ast, NULL, &btree_execute);
 		}
 		ft_bzero(&new_token, sizeof(t_token));
 	}
