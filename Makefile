@@ -20,6 +20,8 @@ NAME_C = main.c \
 		ast_execute.c \
 		ast_lexer.c \
 		ast_parser.c \
+		ast_rules_add.c \
+		ast_rules_cond.c \
 		ast_token_is.c \
 		prompt.c 
 NAME_O = $(NAME_C:.c=.o)

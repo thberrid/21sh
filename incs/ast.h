@@ -72,12 +72,28 @@ typedef struct	s_btree
 	struct s_btree	*right;
 }				t_btree;
 
+typedef struct	s_ast_rules
+{
+	int		(*cond)(t_btree *);
+	int		(*add)(t_btree **, t_btree *);
+}				t_ast_rules;
+
 t_btree			*btree_create(t_token *new);
 int				btree_dfs(t_btree *btree, char **env,
 					int (*f)(t_btree *, char **));
 int				btree_free(t_btree *btree, char **env);
 
 int				btree_add(t_btree **btree, t_btree *new);
+
+int				btree_add_set(t_btree **ast, t_btree *new_node);
+int				btree_add_from_right(t_btree **ast, t_btree *new_node);
+int				btree_add_from_left(t_btree **ast, t_btree *new_node);
+int				btree_add_from_top(t_btree **ast, t_btree *new_node);
+
+int     		ast_cond_ast_unset(t_btree *ast);
+int     		ast_cond_node_balanced(t_btree *ast);
+int     		ast_cond_onlyone_floor(t_btree *ast);
+int     		ast_cond_several_floors(t_btree *ast);
 
 int				lexer_set_token(t_token *new, char *line, size_t cursor);
 
