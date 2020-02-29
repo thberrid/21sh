@@ -39,6 +39,5 @@ int			btree_add(t_btree **ast, t_btree *new_node)
 			return (rules[index].add(ast, new_node));
 		index += 1;
 	}
-	ft_printf("LOL %d\n", index);
 	return (E_CATCH_ALL);
 }
