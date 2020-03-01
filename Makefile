@@ -23,7 +23,8 @@ NAME_C = main.c \
 		ast_rules_add.c \
 		ast_rules_cond.c \
 		ast_token_is.c \
-		prompt.c 
+		prompt.c \
+		streams.c
 NAME_O = $(NAME_C:.c=.o)
 NAME_H = twentyonesh.h \
 			ast.h

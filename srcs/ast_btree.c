@@ -18,7 +18,7 @@
 ** applying on each node a `int (*fn): return value`
 */
 
-int		btree_dfs(t_btree *btree, char **env, int (*f)(t_btree *, char **))
+int		btree_dfs(t_btree *btree, char **env, t_std_streams *streams, int (*f)(t_btree *, char **, t_std_streams *))
 {
 	int		retrn;
 
@@ -26,20 +26,21 @@ int		btree_dfs(t_btree *btree, char **env, int (*f)(t_btree *, char **))
 	if (!btree)
 		return (0);
 	if (btree->left)
-		retrn = btree_dfs(btree->left, env, f);
+		retrn = btree_dfs(btree->left, env, streams, f);
 	if (retrn)
 		return (retrn);
 	if (btree->right)
-		retrn = btree_dfs(btree->right, env, f);
+		retrn = btree_dfs(btree->right, env, streams, f);
 	if (retrn)
 		return (retrn);
-	retrn = f(btree, env);
+	retrn = f(btree, env, streams);
 	return (retrn);
 }
 
-int		btree_free(t_btree *btree, char **env)
+int		btree_free(t_btree *btree, char **env, t_std_streams *streams)
 {
 	(void)env;
+	(void)streams;
 	if (btree->token.name != EMPTY_LINE)
 		ft_strdel(&btree->token.value);
 	ft_memdel((void **)&btree);

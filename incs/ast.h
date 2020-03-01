@@ -51,13 +51,28 @@ typedef struct 	s_localvar
 }				t_localvar;
 */
 
-typedef struct s_fildes
+enum			e_fd_states
 {
-	int		out;
-	int		in;
-	int		error;
-	// enum etoeknnames ?
+	CLOSE,
+	OPEN,
+	SET
+};
+
+typedef struct	s_fildes
+{
+	enum e_fd_states	state;
+	char				path[256];
+	int					id;
+	int					flags;
 }				t_fildes;
+
+typedef struct s_std_streams
+{
+	t_fildes	in;
+	t_fildes	out;
+	t_fildes	error;
+	// enum etoeknnames, return end $?
+}				t_std_streams;
 
 /*
 >> 	reset_fildes (t_fildes *)
@@ -79,9 +94,9 @@ typedef struct	s_ast_rules
 }				t_ast_rules;
 
 t_btree			*btree_create(t_token *new);
-int				btree_dfs(t_btree *btree, char **env,
-					int (*f)(t_btree *, char **));
-int				btree_free(t_btree *btree, char **env);
+int				btree_dfs(t_btree *btree, char **env, t_std_streams *streams,
+					int (*f)(t_btree *, char **, t_std_streams *));
+int				btree_free(t_btree *btree, char **env, t_std_streams *streams);
 
 int				btree_add(t_btree **btree, t_btree *new);
 
@@ -97,7 +112,7 @@ int     		ast_cond_several_floors(t_btree *ast);
 
 int				lexer_set_token(t_token *new, char *line, size_t cursor);
 
-int				btree_execute(t_btree *btree, char **env);
+int				btree_execute(t_btree *btree, char **env, t_std_streams *streams);
 
 int				ast_parser(t_btree **ast, char *line);
 
@@ -106,5 +121,8 @@ int				token_is_operator(t_token *token);
 int				token_is_controller(t_token *token);
 int				token_is_redirection(t_token *token);
 int				is_portable_charset(char *token_value);
+
+void			streams_reset(t_std_streams *streams);
+void			streams_set(t_std_streams *streams, t_btree *btree);
 
 #endif

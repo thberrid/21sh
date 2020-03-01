@@ -15,12 +15,14 @@
 
 int		prompt_loop(char **env)
 {
-	int			retrn;
-	char		*line;
-	t_btree		*ast;
+	int				retrn;
+	char			*line;
+	t_btree			*ast;
+	t_std_streams	streams;
 
 	line = NULL;
 	ft_printf("%s", PROMPT);
+	streams_reset(&streams);
 	while ((retrn = get_next_line(0, &line)) > 0)
 	{
 		if (retrn <= 0)
@@ -28,9 +30,9 @@ int		prompt_loop(char **env)
 		ast = NULL;
 		retrn = ast_parser(&ast, line);
 		if (!retrn)
-			retrn = btree_dfs(ast, env, &btree_execute);
+			retrn = btree_dfs(ast, env, &streams, &btree_execute);
 		ft_strdel(&line);
-		btree_dfs(ast, env, &btree_free);
+		btree_dfs(ast, NULL, NULL, &btree_free);
 		if (LEAKS)
 			system("leaks 21sh");
 		if (retrn)
