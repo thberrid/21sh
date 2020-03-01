@@ -76,12 +76,28 @@ t_token		*str_is_operator(char *str, int len, t_token *(*get_operators)())
 	return (NULL);
 }
 
+int			strn_is_empty(char *str, int len)
+{
+	int		index;
+
+	index = 0;
+	while (str[index] && index < len)
+	{
+		if (!ft_isspace(str[index]))
+			return (0);
+		index += 1;
+	}
+	return (1);
+}
+
 static enum e_token_names	token_get_name(char *str, int len)
 {
 	int		cursor;
 	t_token	*reference;
 
 	cursor = ft_spaceslen(str);
+	if (strn_is_empty(str + cursor, len - cursor))
+		return (EMPTY_LINE);
 	reference = str_is_operator(str + cursor, len - cursor, &get_redirections);
 	if (!reference)
 		reference = str_is_operator(str + cursor, len - cursor, &get_controllers);

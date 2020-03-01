@@ -23,6 +23,8 @@ int		btree_dfs(t_btree *btree, char **env, int (*f)(t_btree *, char **))
 	int		retrn;
 
 	retrn = 0;
+	if (!btree)
+		return (0);
 	if (btree->left)
 		retrn = btree_dfs(btree->left, env, f);
 	if (retrn)
@@ -38,7 +40,8 @@ int		btree_dfs(t_btree *btree, char **env, int (*f)(t_btree *, char **))
 int		btree_free(t_btree *btree, char **env)
 {
 	(void)env;
-	ft_strdel(&btree->token.value);
+	if (btree->token.name != EMPTY_LINE)
+		ft_strdel(&btree->token.value);
 	ft_memdel((void **)&btree);
 	return (E_SUCCESS);
 }

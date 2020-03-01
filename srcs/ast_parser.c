@@ -33,12 +33,15 @@ int			ast_parser(t_btree **ast, char *line)
 		if (new_token.name != EMPTY_LINE)
 		{
 			if ((new_node = btree_create(&new_token)))
+			{
 				if (btree_add(ast, new_node))
 					return (ast_parser_error((*ast)->token.value));
-		}
+			}
+		} else
+			cursor += 1;
 		ft_bzero(&new_token, sizeof(t_token));
 	}
-	if (token_is_operator(&(*ast)->token) && !(*ast)->left)
+	if (*ast && token_is_operator(&(*ast)->token) && !(*ast)->left)
 		return (ast_parser_error((*ast)->token.value));
 	return (E_SUCCESS);
 }
