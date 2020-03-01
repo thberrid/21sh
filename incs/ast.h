@@ -17,7 +17,12 @@
 
 # define LINE_SEPARATOR	"><&|;"
 
-enum			e_errors {
+# define FD_IN			0
+# define FD_OUT			1
+# define FD_ERR			2
+
+enum			e_errors
+{
 	E_MALLOCFAIL = -1,
 	E_SUCCESS,
 	E_CATCH_ALL,
@@ -47,15 +52,15 @@ typedef struct	s_token
 /*
 typedef struct 	s_localvar
 {
-	t_dlist * (import tdlist lol)
+	t_dlist * (import tdlist lol) ?
 }				t_localvar;
 */
 
 enum			e_fd_states
 {
-	CLOSE,
-	OPEN,
-	SET
+	FD_STATE_CLOSE,
+	FD_STATE_OPEN,
+	FD_STATE_SET
 };
 
 typedef struct	s_fildes
@@ -66,18 +71,14 @@ typedef struct	s_fildes
 	int					flags;
 }				t_fildes;
 
+/*
 typedef struct s_std_streams
 {
+	t_fildes	fds[3];
 	t_fildes	in;
 	t_fildes	out;
 	t_fildes	error;
-	// enum etoeknnames, return end $?
 }				t_std_streams;
-
-/*
->> 	reset_fildes (t_fildes *)
-		.out = 0, in = 1, error = 2
->>	set_fildes (t_fildes *, t_btree *);
 */
 
 typedef struct	s_btree
@@ -94,9 +95,9 @@ typedef struct	s_ast_rules
 }				t_ast_rules;
 
 t_btree			*btree_create(t_token *new);
-int				btree_dfs(t_btree *btree, char **env, t_std_streams *streams,
-					int (*f)(t_btree *, char **, t_std_streams *));
-int				btree_free(t_btree *btree, char **env, t_std_streams *streams);
+int				btree_dfs(t_btree *btree, char **env, f_fildes *fildes,
+					int (*f)(t_btree *, char **, f_fildes *));
+int				btree_free(t_btree *btree, char **env, f_fildes *fildes);
 
 int				btree_add(t_btree **btree, t_btree *new);
 
@@ -112,7 +113,7 @@ int     		ast_cond_several_floors(t_btree *ast);
 
 int				lexer_set_token(t_token *new, char *line, size_t cursor);
 
-int				btree_execute(t_btree *btree, char **env, t_std_streams *streams);
+int				btree_execute(t_btree *btree, char **env, f_fildes *fildes);
 
 int				ast_parser(t_btree **ast, char *line);
 
@@ -122,7 +123,7 @@ int				token_is_controller(t_token *token);
 int				token_is_redirection(t_token *token);
 int				is_portable_charset(char *token_value);
 
-void			streams_reset(t_std_streams *streams);
-void			streams_set(t_std_streams *streams, t_btree *btree);
+void			streams_reset(f_fildes *fildes);
+void			streams_set(f_fildes *fildes, t_btree *btree);
 
 #endif

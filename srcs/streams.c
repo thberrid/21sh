@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   streams.c                                          :+:      :+:    :+:   */
+/*   fildes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thberrid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,15 +13,26 @@
 #include <twentyonesh.h>
 #include <ast.h>
 
-void	streams_reset(t_std_streams *streams)
+void	fildes_reset(t_fildes *fildes)
 {
-	ft_bzero(streams, sizeof(t_std_streams));
-	streams->in.id = 1;
-	streams->error.id = 1;
+	ft_bzero(fildes, sizeof(t_fildes));
+	fildes[1].id = 1;
+	fildes[2].id = 2;
 }
 
-void	streams_set(t_std_streams *streams, t_btree *btree)
+void	fildes_set(t_fildes *fildes, t_btree *btree)
 {
 	(void)btree;
-	(void)streams;
+	fildes_reset(fildes);
+	if (btree->token.name == LESS || btree->token.name == DLESS
+		|| btree->token.name == PIPE)
+		fildes[0].state = FD_STATE_OPEN;
+	if (btree->token.name == GREAT || btree->token.name == DGREAT
+		|| btree->token.name == PIPE)
+		fildes[1].state = FD_STATE_OPEN;
+	// IF ERROR >> fildes[2].state = OPEN
+	if (btree->token.name == DLESS)
+		fildes[0].flags |= O_APPEND;
+	if (btree->token.name == DGREAT)
+		fildes[1].flags |= O_APPEND;
 }

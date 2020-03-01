@@ -18,11 +18,11 @@ int		prompt_loop(char **env)
 	int				retrn;
 	char			*line;
 	t_btree			*ast;
-	t_std_streams	streams;
+	t_fildes		fildes[3];
 
 	line = NULL;
 	ft_printf("%s", PROMPT);
-	streams_reset(&streams);
+	fildes_reset(&fildes);
 	while ((retrn = get_next_line(0, &line)) > 0)
 	{
 		if (retrn <= 0)
@@ -30,7 +30,7 @@ int		prompt_loop(char **env)
 		ast = NULL;
 		retrn = ast_parser(&ast, line);
 		if (!retrn)
-			retrn = btree_dfs(ast, env, &streams, &btree_execute);
+			retrn = btree_dfs(ast, env, &fildes, &btree_execute);
 		ft_strdel(&line);
 		btree_dfs(ast, NULL, NULL, &btree_free);
 		if (LEAKS)

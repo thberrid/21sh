@@ -18,7 +18,7 @@
 ** applying on each node a `int (*fn): return value`
 */
 
-int		btree_dfs(t_btree *btree, char **env, t_std_streams *streams, int (*f)(t_btree *, char **, t_std_streams *))
+int		btree_dfs(t_btree *btree, char **env, t_fildes *streams, int (*f)(t_btree *, char **, t_fildes *))
 {
 	int		retrn;
 
@@ -37,7 +37,7 @@ int		btree_dfs(t_btree *btree, char **env, t_std_streams *streams, int (*f)(t_bt
 	return (retrn);
 }
 
-int		btree_free(t_btree *btree, char **env, t_std_streams *streams)
+int		btree_free(t_btree *btree, char **env, t_fildes *streams)
 {
 	(void)env;
 	(void)streams;
