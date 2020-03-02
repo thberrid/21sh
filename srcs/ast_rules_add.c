@@ -13,7 +13,7 @@
 #include <twentyonesh.h>
 #include <ast.h>
 
-int	btree_add_set(t_btree **ast, t_btree *new_node)
+int	btree_add_first(t_btree **ast, t_btree *new_node)
 {
     *ast = new_node;
     return (E_SUCCESS);

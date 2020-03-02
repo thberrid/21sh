@@ -13,14 +13,52 @@
 #include <twentyonesh.h>
 #include <ast.h>
 
+int		fildes_are_open(t_fildes *fildes, int *fd_id)
+{
+	int		index;
+
+	index = 0;
+	while (fd_id[index] != -1)
+	{
+		if (fildes[fd_id[index]].state == FD_STATE_OPEN)
+			return (1);
+		index += 1;
+	}
+	return (0);
+}
+
+void	fildes_set(t_fildes *fildes, t_btree *btree)
+{
+	int		index;
+
+	index = 0;
+	while (index < 3)
+	{
+		if (fildes[index].state == FD_STATE_OPEN)
+		{
+			fildes[index].state = FD_STATE_SET;
+			ft_strcpy(fildes[index].path, btree->token.value);
+			return ;
+		}
+		index += 1;
+	}
+}
+
 void	fildes_reset(t_fildes *fildes)
 {
-	ft_bzero(fildes, sizeof(t_fildes));
+	int		index;
+
+	index = 0;
+	while (index < 3)
+	{
+		ft_bzero(&fildes[index], sizeof(t_fildes));
+		index += 1;
+	}
 	fildes[1].id = 1;
 	fildes[2].id = 2;
 }
 
-void	fildes_set(t_fildes *fildes, t_btree *btree)
+void	fildes_state_set(t_fildes *fildes, t_btree *btree)
 {
 	(void)btree;
 	fildes_reset(fildes);

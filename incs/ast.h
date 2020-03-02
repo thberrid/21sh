@@ -71,16 +71,6 @@ typedef struct	s_fildes
 	int					flags;
 }				t_fildes;
 
-/*
-typedef struct s_std_streams
-{
-	t_fildes	fds[3];
-	t_fildes	in;
-	t_fildes	out;
-	t_fildes	error;
-}				t_std_streams;
-*/
-
 typedef struct	s_btree
 {
 	t_token	token;
@@ -95,13 +85,13 @@ typedef struct	s_ast_rules
 }				t_ast_rules;
 
 t_btree			*btree_create(t_token *new);
-int				btree_dfs(t_btree *btree, char **env, f_fildes *fildes,
-					int (*f)(t_btree *, char **, f_fildes *));
-int				btree_free(t_btree *btree, char **env, f_fildes *fildes);
+int				btree_dfs(t_btree *btree, char **env, t_fildes *fildes,
+					int (*f)(t_btree *, char **, t_fildes *));
+int				btree_free(t_btree *btree, char **env, t_fildes *fildes);
 
 int				btree_add(t_btree **btree, t_btree *new);
 
-int				btree_add_set(t_btree **ast, t_btree *new_node);
+int				btree_add_first(t_btree **ast, t_btree *new_node);
 int				btree_add_from_right(t_btree **ast, t_btree *new_node);
 int				btree_add_from_left(t_btree **ast, t_btree *new_node);
 int				btree_add_from_top(t_btree **ast, t_btree *new_node);
@@ -113,7 +103,7 @@ int     		ast_cond_several_floors(t_btree *ast);
 
 int				lexer_set_token(t_token *new, char *line, size_t cursor);
 
-int				btree_execute(t_btree *btree, char **env, f_fildes *fildes);
+int				btree_execute(t_btree *btree, char **env, t_fildes *fildes);
 
 int				ast_parser(t_btree **ast, char *line);
 
@@ -123,7 +113,8 @@ int				token_is_controller(t_token *token);
 int				token_is_redirection(t_token *token);
 int				is_portable_charset(char *token_value);
 
-void			streams_reset(f_fildes *fildes);
-void			streams_set(f_fildes *fildes, t_btree *btree);
+void			fildes_reset(t_fildes *fildes);
+void			fildes_state_set(t_fildes *fildes, t_btree *btree);
+int				fildes_are_open(t_fildes *fildes, int *fd_id);
 
 #endif

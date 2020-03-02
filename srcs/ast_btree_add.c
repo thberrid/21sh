@@ -16,7 +16,7 @@
 t_ast_rules	*get_ast_rules(void)
 {
 	static t_ast_rules	rules[] = {
-		{&ast_cond_ast_unset, &btree_add_set},
+		{&ast_cond_ast_unset, &btree_add_first},
 		{&ast_cond_node_balanced, &btree_add_from_top},
 		{&ast_cond_onlyone_floor, &btree_add_from_right},
 		{&ast_cond_several_floors, &btree_add_from_left},
