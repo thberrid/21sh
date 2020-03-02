@@ -9,18 +9,22 @@ int		main(int ac, char **av, char **env)
 	int		status;
 	int		dup_fd;
 	int		open_fd;
+	int		fd[2];
 
+	pipe(fd);
 	pid_parent = fork();
 	if (!pid_parent)
 	{
+		close(fd[0]);
+		dup2(0, fd[0])
 		printf("child\n");
-		open_fd = open("text.txt", O_CREAT);
-		dup_fd = dup2(1, open_fd);
+		fd[0] = open("text.txt", O_CREAT);
+		fd[1] = dup(1);
 		execve("/bin/ls", av, env);
-		close(open_fd);
 	}
 	else
 	{
+		close(fd[1]);
 		waitpid(pid_parent, &status, 0);
 		printf("parent\n");
 	}
