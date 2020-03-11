@@ -11,21 +11,23 @@ int		main(int ac, char **av, char **env)
 	int		open_fd;
 	int		fd[2];
 
-	pipe(fd);
+//	pipe(fd);
 	pid_parent = fork();
 	if (!pid_parent)
 	{
-		close(fd[0]);
-		dup2(0, fd[0])
+	//	close(fd[0]);
 		printf("child\n");
-		fd[0] = open("text.txt", O_CREAT);
-		fd[1] = dup(1);
+		open_fd = open("text.txt", O_CREAT | O_RDWR | O_APPEND, 755);
+		dup2(open_fd, 1);
+	//	dup2(1, fd[1]);
 		execve("/bin/ls", av, env);
+		close(open_fd);
 	}
 	else
 	{
-		close(fd[1]);
+	//	close(fd[1]);
 		waitpid(pid_parent, &status, 0);
+	//	write(fd[0], );
 		printf("parent\n");
 	}
 	return (0);
