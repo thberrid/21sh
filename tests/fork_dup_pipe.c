@@ -3,32 +3,54 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 
-int		main(int ac, char **av, char **env)
-{
-	pid_t	pid_parent;
-	int		status;
-	int		dup_fd;
-	int		open_fd;
-	int		fd[2];
+/*
+http://www.cs.loyola.edu/~jglenn/702/S2005/Examples/dup2.html
+*/
 
-//	pipe(fd);
-	pid_parent = fork();
-	if (!pid_parent)
+int		redirection(char **av, char **env)
+{
+	pid_t	pid_forked;
+	int		status;
+	int		open_fd;
+
+	pid_forked = fork();
+	if (!pid_forked)
 	{
-	//	close(fd[0]);
 		printf("child\n");
 		open_fd = open("text.txt", O_CREAT | O_RDWR | O_APPEND, 755);
 		dup2(open_fd, 1);
-	//	dup2(1, fd[1]);
 		execve("/bin/ls", av, env);
 		close(open_fd);
 	}
 	else
 	{
-	//	close(fd[1]);
-		waitpid(pid_parent, &status, 0);
-	//	write(fd[0], );
+		waitpid(pid_forked, &status, 0);
 		printf("parent\n");
 	}
+	return (0);
+}
+
+int		pipe(char **av, char **env)
+{
+	pid_t	pid_forked;
+	int		piped_fd[2];
+
+	pipe(piped_fd);
+	pid_forked = fork();
+	if (!pid_forked)
+	{
+		printf("child\n");
+	}
+	else
+	{
+		printf("parent\n");
+	}
+	return (0);
+}
+
+int		main(int ac, char **av, char **env)
+{
+//	redirection(av, env);
+	pipe(av, env);
 	return (0);
 }
